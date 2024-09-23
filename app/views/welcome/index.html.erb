@@ -1,2 +1,21 @@
-<h1>Welcome#index</h1>
-<p>Find me in app/views/welcome/index.html.erb</p>
+<div class="row">
+  <div class="col-4">
+    <%= form_with url: root_path do |f| %>
+      <!-- 헐! data-controller에 ""가 없어서 적용하지 못했던거야?????????????? -->
+      <%#= f.text_field :query, class: "form-control", data-controller: "search" %>
+      <!-- 이렇게 하지 말고 걍 search_controller에서 처리할 수 있음 -->
+      <%#= f.text_field :query, class: "form-control",
+        "data-controller": :search,
+        "data-action": "keyup->search#search" %>
+      <%#= f.text_field :query, class: "form-control",
+        data: { controller: :search, action: "keyup->search#search" } %>
+      <%= f.text_field :query, class: "form-control", "data-controller": :search %>
+    <% end %>
+    <%= render "welcome/results" %>
+  </div>
+
+  <div class="col-8">
+    <%= turbo_frame_tag :show_content %>
+  </div>
+</div>
+
